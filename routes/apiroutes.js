@@ -1,6 +1,5 @@
-const fs = require("fs");
 const path = require("path");
-const uuid = require("uuid");
+const fs = require("fs");
 
 module.exports = app => {
 
@@ -24,19 +23,19 @@ module.exports = app => {
             res.json(notes[req.params.id])
         });
 
-        // display notes.html
-        app.get("/notes", function(req, res) {
-            res.readFile(path.join(__dirname, "public/notes"))
-        });
-
-        // display index
-        app.get("*", function(req, res) {
-            res.readFile(path.join(__dirname, "public/index"))
-        });
-
         // POST Route
-        // app.post("/api/notes", function (req, res) {
+        app.post("/api/notes", function (req, res) {
+            let newNotes = req.body;
+            notes.push(newNotes);
+            updateDb();
+            return console.log("New Note Added: " + newNotes.title )
+        })
 
-        // })
+        function updateDb() {
+            fs.writeFile("db/db.json", JSON.stringify(notes, "/t"), err => {
+                if (err) throw err;
+                return true;
+            });
+        };
     })
-}
+};
