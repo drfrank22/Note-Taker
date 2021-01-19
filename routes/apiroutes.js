@@ -26,16 +26,21 @@ module.exports = app => {
         // POST Route
         app.post("/api/notes", function (req, res) {
             let newNotes = req.body;
+            if (notes.length == 0){
+                newNotes.id = "0";
+            } else{
+                newNotes.id = JSON.stringify(JSON.parse(notes[notes.length - 1].id) + 1);
+            };
             notes.push(newNotes);
             updateDb();
             return console.log("New Note Added: " + newNotes.title )
         })
 
         function updateDb() {
-            fs.writeFile("db/db.json", JSON.stringify(notes, "/t"), err => {
+            fs.writeFileSync("db/db.json", JSON.stringify(notes, "\t"), err => {
                 if (err) throw err;
-                return true;
+                // return true;
             });
-        };
+        }
     })
 };

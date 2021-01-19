@@ -24,19 +24,19 @@ module.exports = app => {
             res.json(notes[req.params.id])
         });
 
-        // display notes.html
-        app.get("/notes", function(req, res) {
-            res.readFile(path.join(__dirname, "public/notes"))
-        });
+        // // display notes.html
+        // app.get("/notes", function(req, res) {
+        //     res.readFile(path.join(__dirname, "public/notes"))
+        // });
 
-        // display index
-        app.get("*", function(req, res) {
-            res.readFile(path.join(__dirname, "public/index"))
-        });
+        // // display index
+        // app.get("*", function(req, res) {
+        //     res.readFile(path.join(__dirname, "public/index"))
+        // });
 
-        // POST Route
-        // app.post("/api/notes", function (req, res) {
+        POST Route
+        app.post("/api/notes", function (req, res) {
 
-        // })
+        })
     })
 }
